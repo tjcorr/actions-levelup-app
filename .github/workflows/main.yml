@@ -32,3 +32,29 @@ jobs:
       uses: Azure/cli@v1
       with:
         inlineScript: az acr build --image $AZURE_WEBAPP_NAME:${{ github.run_number }} --registry $ACR_NAME.azurecr.io .
+        
+  deploy-test:
+    runs-on: ubuntu-latest
+    environment:
+      name: test
+      url: https://webapp-actions-levelup-test.azurewebsites.net
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Az CLI login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+    - name: Deploy to App Service Slot
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        slot-name: test
+        images: ${{ env.ACR_NAME }}.azurecr.io/${{ env.AZURE_WEBAPP_NAME }}:${{ github.run_number }}
+        
+        
