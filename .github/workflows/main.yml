@@ -31,4 +31,4 @@ jobs:
     - name: Azure Container Registry Build
       uses: Azure/cli@v1
       with:
-        inlineScript: az acr build --image $AZURE_WEBAPP_NAME:${{ github.run_number }} --registry $ACR_NAME.azurcr.io .
+        inlineScript: az acr build --image $AZURE_WEBAPP_NAME:${{ github.run_number }} --registry $ACR_NAME.azurecr.io .
