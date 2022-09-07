@@ -29,9 +29,6 @@ jobs:
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         
     - name: Azure Container Registry Build
-      uses: Azure/acr-build@v1
+      uses: Azure/cli@v1
       with:
-        registry: ${{ env.ACR_NAME }}
-        repository: sample
-        image: webapp
-        tag: $${{ github.run_number }}
+        inlineScript: az acr build --image $AZURE_WEBAPP_NAME:${{ github.run_number }} --registry $ACR_NAME.azurcr.io --file Dockerfile
