@@ -80,5 +80,5 @@ jobs:
     - name: Swap slot to production
       uses: Azure/cli@v1
       with:
-        inlineScript: az webapp deployment slot swap -g $AZURE_RG --name $ACR_NAME --slot test --target-slot production
+        inlineScript: az webapp deployment slot swap -g $AZURE_RG --name $AZURE_WEBAPP_NAME --slot test --target-slot production
         
