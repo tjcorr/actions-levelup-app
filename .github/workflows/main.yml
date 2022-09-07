@@ -3,6 +3,7 @@ name: Build and deploy a container to an Azure Web App
 env:
   AZURE_WEBAPP_NAME: webapp-actions-levelup
   ACR_NAME: acractionslevelup
+  AZURE_RG: rg-actions-levelup
   
 on:
   push:
@@ -58,4 +59,26 @@ jobs:
         slot-name: test
         images: ${{ env.ACR_NAME }}.azurecr.io/${{ env.AZURE_WEBAPP_NAME }}:${{ github.run_number }}
         
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: deploy-test
+    environment:
+      name: prod
+      url: https://webapp-actions-levelup.azurewebsites.net
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Az CLI login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+    - name: Swap slot to production
+      uses: Azure/cli@v1
+      with:
+        inlineScript: az webapp deployment slot swap -g $AZURE_RG --name $ACR_NAME --slot test --target-slot production
         
