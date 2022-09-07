@@ -35,6 +35,7 @@ jobs:
         
   deploy-test:
     runs-on: ubuntu-latest
+    needs: build-publish
     environment:
       name: test
       url: https://webapp-actions-levelup-test.azurewebsites.net
