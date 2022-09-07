@@ -32,6 +32,6 @@ jobs:
       uses: Azure/acr-build@v1
       with:
         registry: ${{ env.ACR_NAME }}
-        repository: repo
+        repository: sample
         image: webapp
         tag: $${{ github.run_number }}
