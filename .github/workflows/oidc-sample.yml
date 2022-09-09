@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   gh-runner:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout
