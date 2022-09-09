@@ -10,32 +10,18 @@ permissions:
 jobs:
   gh-runner:
     runs-on: self-hosted
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
       
-    - name: Setup Debug Logging
-      shell: pwsh
-      run: |
-        $DebugPreference = "Continue"
-        Get-Module
-
     - name: Az CLI login
-      uses: tjcorr/login@main
+      uses: Azure/login@main
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         enable-AzPSSession: true
-      continue-on-error: true
-        
-    - name: Print Module
-      shell: pwsh
-      run: |
-        Get-Module
-        Resolve-AzError
-       
+               
     - name: Az CLI Test
       uses: azure/CLI@v1
       with:
