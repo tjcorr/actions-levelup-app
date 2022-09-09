@@ -14,6 +14,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      
+    - name: Setup Debug Logging
+      run: |
+        pwsh
+        $DebugPreference = "Continue"
+        Get-Module
 
     - name: Az CLI login
       uses: azure/login@v1
@@ -21,6 +27,13 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        enable-AzPSSession: true
+      continue-on-error: true
+        
+    - name: Print Module
+      run: |
+        pwsh
+        Get-Module
        
     - name: Az CLI Test
       uses: azure/CLI@v1
