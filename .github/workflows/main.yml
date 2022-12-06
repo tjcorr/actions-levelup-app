@@ -1,7 +1,7 @@
 name: Build and deploy a container to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: webapp-actions-levelup
+  AZURE_WEBAPP_NAME: webapp-actions-levelup-demo
   ACR_NAME: acractionslevelup
   AZURE_RG: rg-actions-levelup
   
