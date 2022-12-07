@@ -39,7 +39,7 @@ jobs:
     needs: build-publish
     environment:
       name: test
-      url: https://webapp-actions-levelup-test.azurewebsites.net
+      url: https://webapp-actions-levelup-demo-test.azurewebsites.net
     
     steps:
     - name: Checkout
@@ -64,7 +64,7 @@ jobs:
     needs: deploy-test
     environment:
       name: prod
-      url: https://webapp-actions-levelup.azurewebsites.net
+      url: https://webapp-actions-levelup-demo.azurewebsites.net
     
     steps:
     - name: Checkout
